@@ -1,0 +1,108 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: auto;
+  z-index: 9999;
+  font-family: 'Consolas', 'Menlo', monospace;
+  font-size: 11px;
+  color: #fff;
+  cursor: crosshair;
+}
+
+.marker {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  box-shadow: 0 0 0 1px #fff;
+}
+
+.marker .label {
+  position: absolute;
+  left: 8px;
+  top: -7px;
+}
+
+.bookBox {
+  position: absolute;
+  border: 1px solid rgba(255, 80, 80, 0.95);
+  background: rgba(255, 80, 80, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+.glowRing {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 220, 120, 0.9);
+  pointer-events: none;
+}
+
+.windowBox {
+  position: absolute;
+  border: 2px solid rgba(120, 200, 255, 0.95);
+  background: rgba(120, 200, 255, 0.08);
+  pointer-events: none;
+}
+
+.windowClip {
+  position: absolute;
+  border: 1px solid rgba(180, 240, 180, 0.85);
+  background: rgba(180, 240, 180, 0.1);
+  pointer-events: none;
+}
+
+.label {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.readout {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  pointer-events: none;
+  user-select: text;
+  font-size: 12px;
+  line-height: 1.45;
+  z-index: 10000;
+}
+
+.readout strong {
+  color: #ffd166;
+}
+
+.draftRect {
+  position: absolute;
+  border: 1px dashed rgba(120, 255, 180, 0.95);
+  background: rgba(120, 255, 180, 0.12);
+  pointer-events: none;
+}
+
+.resultRect {
+  position: absolute;
+  border: 2px solid rgba(120, 255, 180, 0.95);
+  background: rgba(120, 255, 180, 0.18);
+  pointer-events: none;
+}

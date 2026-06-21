@@ -1,0 +1,80 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IM Fell English', 'Cormorant Garamond', 'Garamond', 'Georgia', serif;
+  font-size: 24px;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 5px 8px;
+  border-bottom: 1px solid rgba(80, 40, 0, 0.18);
+}
+
+.table th {
+  color: #3a1d08;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 18px;
+  width: 35%;
+}
+
+.table td {
+  color: #1a0a04;
+  font-weight: 400;
+}
+
+/* grouped cell for the GPU and CPU */
+.deviceRow th {
+  vertical-align: top;
+  padding-top: 8px;
+}
+
+/* stats sub-row (% / °C / W) directly under each device row —
+   remove the divider between device row and its stats so they read as one block */
+.deviceRow td,
+.deviceRow th {
+  border-bottom: 0;
+}
+
+.statsRow th {
+  padding-top: 0;
+}
+
+.statsRow td {
+  padding-top: 0;
+}
+
+.deviceName {
+  font-size: 18px;
+  font-weight: 400;
+  color: #1a0a04;
+  line-height: 1.2;
+}
+
+.primaryMetric {
+  font-size: 22px;
+  font-weight: 400;
+  color: #1a0a04;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+}
+
+.secondaryMetric {
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #5a3a18;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}
+
+.powerBreakdown {
+  font-size: 14px;
+  color: #5a3a18;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.5px;
+}

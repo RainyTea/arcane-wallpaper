@@ -1,0 +1,5 @@
+.canvas {
+  position: absolute;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}

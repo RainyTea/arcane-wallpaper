@@ -1,0 +1,44 @@
+.dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mote {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 240, 200, 0.95) 0%,
+    rgba(255, 225, 165, 0.5) 45%,
+    rgba(255, 215, 150, 0) 100%
+  );
+  mix-blend-mode: screen;
+  filter: blur(0.4px);
+  opacity: 0;
+  --x-drift: 0px;
+  --y-drift: -100px;
+  --peak-opacity: 0.5;
+  animation-name: drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  15% {
+    opacity: var(--peak-opacity);
+  }
+  85% {
+    opacity: var(--peak-opacity);
+  }
+  100% {
+    transform: translate(var(--x-drift), var(--y-drift));
+    opacity: 0;
+  }
+}

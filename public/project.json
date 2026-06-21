@@ -1,0 +1,70 @@
+{
+  "title": "Arcane wallpaper",
+  "type": "web",
+  "file": "index.html",
+  "description": "Interactive shelf wallpaper with stock tickers and system info.\n\nRequires Internet access enabled in Wallpaper Engine for the stock chart.\n\nThe System Codex shows FPS by default. For full live CPU/GPU/RAM/power stats, install the optional hwinfo-bridge companion app: https://github.com/RainyTea/hwinfo-bridge\n\nSource: https://github.com/RainyTea/arcane-wallpaper",
+  "preview": "preview.png",
+  "tags": ["Web", "Interactive", "Fantasy", "Stocks"],
+"general": {
+  "properties": {
+    "stock_instruction": {
+      "order": 1,
+      "text": "Stocks — enter up to 4 tickers, one per field (e.g. NVDA). Leave blank to skip.",
+      "type": "header"
+    },
+    "stock1": {
+      "order": 2,
+      "text": "1",
+      "type": "textinput",
+      "value": ""
+    },
+    "stock2": {
+      "order": 3,
+      "text": "2",
+      "type": "textinput",
+      "value": ""
+    },
+    "stock3": {
+      "order": 4,
+      "text": "3",
+      "type": "textinput",
+      "value": ""
+    },
+    "stock4": {
+      "order": 5,
+      "text": "4",
+      "type": "textinput",
+      "value": ""
+    },
+    "chart_instruction": {
+      "order": 6,
+      "text": "Chart",
+      "type": "header"
+    },
+    "chartRange": {
+      "order": 7,
+      "text": "Time range",
+      "type": "combo",
+      "value": "1mo",
+      "options": [
+        { "label": "1 Day",   "value": "1d" },
+        { "label": "5 Days",  "value": "5d" },
+        { "label": "1 Month", "value": "1mo" },
+        { "label": "6 Months","value": "6mo" },
+        { "label": "1 Year",  "value": "1y" }
+      ]
+    },
+    "display_instruction": {
+      "order": 8,
+      "text": "Display",
+      "type": "header"
+    },
+    "flipColors": {
+      "order": 9,
+      "text": "Flip chart colors",
+      "type": "bool",
+      "value": false
+    }
+  }
+}
+}

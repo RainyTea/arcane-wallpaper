@@ -1,0 +1,17 @@
+/* day night shift, goes with the candle lights */
+.ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  animation: ambientShift 60s ease-in-out infinite;
+  will-change: background-color, opacity;
+}
+
+@keyframes ambientShift {
+  0%   { background-color: rgba(70, 90, 170, 0.35); }   /* night */
+  25%  { background-color: rgba(70, 90, 170, 0.35); }   /* still night */
+  50%  { background-color: rgba(200, 120, 50, 0.28); }  /* midday */
+  75%  { background-color: rgba(200, 120, 50, 0.28); }  /* still day */
+  100% { background-color: rgba(70, 90, 170, 0.35); }   /* back to night */
+}

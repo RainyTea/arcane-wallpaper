@@ -1,0 +1,116 @@
+.slot {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  transition: filter 400ms ease, background-image 400ms ease;
+  overflow: visible;
+  --intensity: 0;
+  --glow-min: 0.35;
+  --glow-strength: calc(var(--glow-min) + (1 - var(--glow-min)) * var(--intensity));
+}
+
+.slot:focus-visible {
+  outline: 2px solid #c084fc;
+  outline-offset: 2px;
+}
+
+.up,
+.down,
+.system {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 140% 110%;
+  mix-blend-mode: screen;
+}
+
+.up {
+  background-image: radial-gradient(
+    ellipse at center,
+    rgba(80, 220, 110, calc(0.45 * var(--glow-strength))) 0%,
+    rgba(80, 220, 110, calc(0.18 * var(--glow-strength))) 45%,
+    rgba(80, 220, 110, 0) 75%
+  );
+  filter: drop-shadow(
+    0 0 calc(4px + 6px * var(--intensity))
+    rgba(80, 220, 110, calc(0.25 + 0.25 * var(--intensity)))
+  );
+}
+
+.down {
+  /* stock glow intensity of the books depending on change % */
+  background-image:
+    radial-gradient(
+      ellipse at center,
+      rgba(230, 70, 70, calc(0.5 * var(--glow-strength) * (1 - var(--intensity) * 0.7))) 0%,
+      rgba(230, 70, 70, calc(0.2 * var(--glow-strength) * (1 - var(--intensity) * 0.7))) 45%,
+      rgba(230, 70, 70, 0) 75%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(120, 0, 0, calc(0.7 * var(--intensity))) 0%,
+      rgba(100, 0, 0, calc(0.32 * var(--intensity))) 45%,
+      rgba(100, 0, 0, 0) 75%
+    );
+  filter: drop-shadow(
+    0 0 calc(4px + 8px * var(--intensity))
+    rgba(
+      calc(230 - 90 * var(--intensity)),
+      calc(70 - 60 * var(--intensity)),
+      calc(70 - 60 * var(--intensity)),
+      calc(0.3 + 0.35 * var(--intensity))
+    )
+  );
+}
+
+.system {
+  /* SYSTEM book: violet/arcane glow, intensity scales with CPU usage */
+  background-image: radial-gradient(
+    ellipse at center,
+    rgba(180, 120, 235, calc(0.45 * var(--glow-strength))) 0%,
+    rgba(160, 100, 220, calc(0.20 * var(--glow-strength))) 45%,
+    rgba(160, 100, 220, 0) 75%
+  );
+  filter: drop-shadow(
+    0 0 calc(4px + 7px * var(--intensity))
+    rgba(180, 120, 235, calc(0.28 + 0.28 * var(--intensity)))
+  );
+}
+
+.debug {
+  border: 1px solid red;
+  background: rgba(255, 0, 0, 0.08);
+}
+
+/* Ticker label */
+.label {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, 6px);
+  white-space: nowrap;
+  font-family: 'IM Fell English SC', 'IM Fell English', 'Cormorant Garamond',
+    'Georgia', serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(7px, 0.55cqw, 13px);
+  letter-spacing: 3px;
+  color: #6a3a18;
+  text-shadow:
+    0 1px 0 rgba(255, 215, 160, 0.18),
+    0 -1px 0 rgba(20, 8, 0, 0.55);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 220ms ease;
+}
+
+.hoverOnly {
+  opacity: 0;
+}
+
+.slot:hover .hoverOnly,
+.slot:focus-visible .hoverOnly {
+  opacity: 1;
+}
