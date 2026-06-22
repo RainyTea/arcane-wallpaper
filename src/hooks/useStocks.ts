@@ -103,8 +103,7 @@ export function useStocks(
         list.map(async (t): Promise<[string, Stock]> => {
           try {
             return [t, await fetchQuote(t, range, signal)]
-          } catch (err) {
-            if (!signal.aborted) console.warn(`[useStocks] ${t} fetch failed:`, err)
+          } catch {
             return [t, placeholder(t)]
           }
         }),
