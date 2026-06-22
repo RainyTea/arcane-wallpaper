@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { LANTERN_LEFT, LANTERN_RIGHT } from '../../coords'
 import type { GlowPoint } from '../../coords'
 import { MASTER_CYCLE_DELAY } from '../../cycleSync'
@@ -35,7 +36,7 @@ function LanternSmoke({ point, phase = 'a' }: LanternProps) {
   return (
     <div
       className={styles.smoke}
-      style={{ left: point.x, top: point.y }}
+      style={{ left: point.x, top: point.y, '--master-cycle-delay': MASTER_CYCLE_DELAY } as CSSProperties}
       aria-hidden
     >
       <div className={`${styles.trail} ${styles.t1} ${phaseClass}`} />

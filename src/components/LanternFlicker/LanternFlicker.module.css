@@ -150,23 +150,23 @@
   will-change: opacity, transform;
 }
 
-.t1 { animation-delay: -42.0s; }
-.t2 { animation-delay: -41.2s; }
-.t3 { animation-delay: -40.4s; }
-.t4 { animation-delay: -39.6s; }
-.t5 { animation-delay: -38.8s; }
-.t6 { animation-delay: -38.0s; }
-.t7 { animation-delay: -37.2s; }
-.t8 { animation-delay: -36.4s; }
+.t1 { animation-delay: calc(-42.0s + var(--master-cycle-delay, 0s)); }
+.t2 { animation-delay: calc(-41.2s + var(--master-cycle-delay, 0s)); }
+.t3 { animation-delay: calc(-40.4s + var(--master-cycle-delay, 0s)); }
+.t4 { animation-delay: calc(-39.6s + var(--master-cycle-delay, 0s)); }
+.t5 { animation-delay: calc(-38.8s + var(--master-cycle-delay, 0s)); }
+.t6 { animation-delay: calc(-38.0s + var(--master-cycle-delay, 0s)); }
+.t7 { animation-delay: calc(-37.2s + var(--master-cycle-delay, 0s)); }
+.t8 { animation-delay: calc(-36.4s + var(--master-cycle-delay, 0s)); }
 
-.pB.t1 { animation-delay: -41.6s; }
-.pB.t2 { animation-delay: -40.8s; }
-.pB.t3 { animation-delay: -40.0s; }
-.pB.t4 { animation-delay: -39.2s; }
-.pB.t5 { animation-delay: -38.4s; }
-.pB.t6 { animation-delay: -37.6s; }
-.pB.t7 { animation-delay: -36.8s; }
-.pB.t8 { animation-delay: -36.0s; }
+.pB.t1 { animation-delay: calc(-41.6s + var(--master-cycle-delay, 0s)); }
+.pB.t2 { animation-delay: calc(-40.8s + var(--master-cycle-delay, 0s)); }
+.pB.t3 { animation-delay: calc(-40.0s + var(--master-cycle-delay, 0s)); }
+.pB.t4 { animation-delay: calc(-39.2s + var(--master-cycle-delay, 0s)); }
+.pB.t5 { animation-delay: calc(-38.4s + var(--master-cycle-delay, 0s)); }
+.pB.t6 { animation-delay: calc(-37.6s + var(--master-cycle-delay, 0s)); }
+.pB.t7 { animation-delay: calc(-36.8s + var(--master-cycle-delay, 0s)); }
+.pB.t8 { animation-delay: calc(-36.0s + var(--master-cycle-delay, 0s)); }
 
 @keyframes lanternTrailRise {
   0%        { opacity: 0.7;  transform: translate(-50%, -10%)  scale(0.5); }

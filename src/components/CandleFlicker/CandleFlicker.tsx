@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { CANDLE_FLAME } from '../../coords'
 import { MASTER_CYCLE_DELAY } from '../../cycleSync'
 import styles from './CandleFlicker.module.css'
@@ -19,7 +20,7 @@ export default function CandleFlicker() {
       {/* smoke trail */}
       <div
         className={styles.smoke}
-        style={{ left: CANDLE_FLAME.x, top: CANDLE_FLAME.y }}
+        style={{ left: CANDLE_FLAME.x, top: CANDLE_FLAME.y, '--master-cycle-delay': MASTER_CYCLE_DELAY } as CSSProperties}
         aria-hidden
       >
         <div className={`${styles.trail} ${styles.t1}`} />

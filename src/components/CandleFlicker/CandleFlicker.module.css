@@ -130,18 +130,18 @@
 }
 
 /** smoke trail for continous smoke effect */
-.t1  { animation-delay: -42.0s; }
-.t2  { animation-delay: -41.2s; }
-.t3  { animation-delay: -40.4s; }
-.t4  { animation-delay: -39.6s; }
-.t5  { animation-delay: -38.8s; }
-.t6  { animation-delay: -38.0s; }
-.t7  { animation-delay: -37.2s; }
-.t8  { animation-delay: -36.4s; }
-.t9  { animation-delay: -35.6s; }
-.t10 { animation-delay: -34.8s; }
-.t11 { animation-delay: -34.0s; }
-.t12 { animation-delay: -33.2s; }
+.t1  { animation-delay: calc(-42.0s + var(--master-cycle-delay, 0s)); }
+.t2  { animation-delay: calc(-41.2s + var(--master-cycle-delay, 0s)); }
+.t3  { animation-delay: calc(-40.4s + var(--master-cycle-delay, 0s)); }
+.t4  { animation-delay: calc(-39.6s + var(--master-cycle-delay, 0s)); }
+.t5  { animation-delay: calc(-38.8s + var(--master-cycle-delay, 0s)); }
+.t6  { animation-delay: calc(-38.0s + var(--master-cycle-delay, 0s)); }
+.t7  { animation-delay: calc(-37.2s + var(--master-cycle-delay, 0s)); }
+.t8  { animation-delay: calc(-36.4s + var(--master-cycle-delay, 0s)); }
+.t9  { animation-delay: calc(-35.6s + var(--master-cycle-delay, 0s)); }
+.t10 { animation-delay: calc(-34.8s + var(--master-cycle-delay, 0s)); }
+.t11 { animation-delay: calc(-34.0s + var(--master-cycle-delay, 0s)); }
+.t12 { animation-delay: calc(-33.2s + var(--master-cycle-delay, 0s)); }
 
 
 @keyframes trailRise {
