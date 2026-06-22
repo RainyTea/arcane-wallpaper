@@ -27,9 +27,10 @@ interface Sparkle {
 
 interface MagicSparklesProps {
   sources: SparkleSource[]
+  maxSparkles?: number
 }
 
-const MAX_SPARKLES = 80
+const MAX_SPARKLES_DEFAULT = 80
 
 function spawn(src: SparkleSource, w: number, h: number): Sparkle {
   const min = Math.min(w, h)
@@ -92,16 +93,21 @@ function drawSparkle(
   ctx.stroke()
 }
 
-function MagicSparkles({ sources }: MagicSparklesProps) {
+function MagicSparkles({ sources, maxSparkles = MAX_SPARKLES_DEFAULT }: MagicSparklesProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const sparklesRef = useRef<Sparkle[]>([])
   const sizeRef = useRef({ w: 0, h: 0 })
   const carryRef = useRef<number[]>([])
   const sourcesRef = useRef(sources)
+  const maxSparklesRef = useRef(maxSparkles)
 
   useEffect(() => {
     sourcesRef.current = sources
   }, [sources])
+
+  useEffect(() => {
+    maxSparklesRef.current = maxSparkles
+  }, [maxSparkles])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -138,7 +144,7 @@ function MagicSparkles({ sources }: MagicSparklesProps) {
       carryRef.current[i] += srcs[i].rate * dt
       while (
         carryRef.current[i] >= 1 &&
-        sparklesRef.current.length < MAX_SPARKLES
+        sparklesRef.current.length < maxSparklesRef.current
       ) {
         sparklesRef.current.push(spawn(srcs[i], w, h))
         carryRef.current[i] -= 1

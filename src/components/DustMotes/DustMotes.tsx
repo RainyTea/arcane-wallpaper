@@ -1,7 +1,7 @@
 import { memo, useMemo, type CSSProperties } from 'react'
 import styles from './DustMotes.module.css'
 
-const MOTE_COUNT = 24
+const MOTE_COUNT_DEFAULT = 24
 
 interface Mote {
   left: string
@@ -14,9 +14,9 @@ interface Mote {
   opacity: number
 }
 
-function makeMotes(): Mote[] {
+function makeMotes(count: number): Mote[] {
   const arr: Mote[] = []
-  for (let i = 0; i < MOTE_COUNT; i++) {
+  for (let i = 0; i < count; i++) {
     arr.push({
       left: `${Math.random() * 100}%`,
       top: `${20 + Math.random() * 75}%`,
@@ -31,8 +31,8 @@ function makeMotes(): Mote[] {
   return arr
 }
 
-function DustMotes() {
-  const motes = useMemo(() => makeMotes(), [])
+function DustMotes({ count = MOTE_COUNT_DEFAULT }: { count?: number } = {}) {
+  const motes = useMemo(() => makeMotes(count), [count])
   return (
     <div className={styles.dust} aria-hidden>
       {motes.map((m, i) => (

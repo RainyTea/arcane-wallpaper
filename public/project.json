@@ -2,7 +2,7 @@
   "title": "Arcane wallpaper",
   "type": "web",
   "file": "index.html",
-  "description": "Interactive shelf wallpaper with stock tickers and system info.\n\nRequires Internet access enabled in Wallpaper Engine for the stock chart.\n\nThe System Codex shows FPS by default. For full live CPU/GPU/RAM/power stats, install the optional hwinfo-bridge companion app: https://github.com/RainyTea/hwinfo-bridge\n\nSource: https://github.com/RainyTea/arcane-wallpaper",
+  "description": "[h1]Arcane Dashboard: Interactive Fantasy Shelf[/h1]\nAn interactive shelf wallpaper with stock tickers and a system info codex, set in a candle-lit fantasy study. Designed to blend a cozy, mystical aesthetic with high-utility desktop widgets.\n\n[i]Note: Designed for 3440×1440 ultrawide displays. Other resolutions may work but are not officially supported.[/i]\n\n[h2]Features[/h2]\n[list]\n[*] [b]Reactive Stock Tickers:[/b] Track up to 4 stocks/cryptos, each represented as a book on the shelf. Books glow green or red based on the day's gain or loss. The intensity scales with the % change — small moves stay calm, while big swings glow brightly and emit colored direction-tied sparkles.\n[*] [b]Interactive Panels & Sparklines:[/b] Click any book to open its dashboard. Panels show live price, change, volume, and a sparkline chart over your chosen range (1d / 5d / 1mo / 6mo / 1y / 5y). Drag panels around the desk freely; multiple can be open at once.\n[*] [b]Magical Runestones:[/b] Runestones light up at the base of the shelf (one per active ticker) with slow-rising purple embers.\n[*] [b]System Codex:[/b] The SYSTEM book glows soft violet, intensifying with CPU usage. Click it to open the System Codex.\n[*] [b]Atmospheric Ambient:[/b] Features a synchronized 60-second day/night atmosphere cycle where the candle flame, lantern halos, and ambient light breathe in unison, while ambient dust motes drift through the scene.\n[/list]\n\n[h2]Setup & Configuration[/h2]\n[list]\n[*] Set your preferred stock tickers directly in the wallpaper's properties panel inside Wallpaper Engine.\n[/list]\n\n[h2]Optional Companion App (Hardware Stats)[/h2]\nThe System Codex shows FPS by default. For full live CPU, GPU, RAM, VRAM, and power stats, you need to install the [b]hwinfo-bridge[/b] companion app. It works perfectly with the free version of HWiNFO.\n\n[b]Download HWiNFO Bridge Companion App:[/b]\n[url=https://github.com/RainyTea/hwinfo-bridge]HWiNFO bridge[/url]\n\n[b]Wallpaper GitHub Repository:[/b]\n[url=https://github.com/RainyTea/arcane-wallpaper]Wallpaper repository[/url]\n\n***\n\n[b]Tags / Keywords:[/b]\n#Arcane #Fantasy #Magic #Witchcraft #DarkAcademia #Medieval #Runes #Candle #Lantern #Mystical #Cozy #Dark #Violet #Purple #Green #Red #Interactive #Web #Customizable #SystemMonitor #Hardware #CPU #GPU #FPS #StockTicker #Stocks #Finance #Crypto #Animated #Embers #Particles #Clean #Desktop #Utility #Dashboard #Ultrawide #3440x1440",
   "preview": "preview.png",
   "tags": ["Web", "Interactive", "Fantasy", "Stocks"],
 "general": {
@@ -64,6 +64,59 @@
       "text": "Flip chart colors",
       "type": "bool",
       "value": false
+    },
+    "performance_instruction": {
+      "order": 10,
+      "text": "Performance — turn individual effects off to save GPU/CPU",
+      "type": "header"
+    },
+    "quality_stars": {
+      "order": 11,
+      "text": "Stars",
+      "type": "combo",
+      "value": "medium",
+      "options": [
+        { "label": "Off",    "value": "off" },
+        { "label": "Low",    "value": "low" },
+        { "label": "Medium", "value": "medium" },
+        { "label": "High",   "value": "high" }
+      ]
+    },
+    "quality_motes": {
+      "order": 12,
+      "text": "Dust motes",
+      "type": "combo",
+      "value": "medium",
+      "options": [
+        { "label": "Off",    "value": "off" },
+        { "label": "Low",    "value": "low" },
+        { "label": "Medium", "value": "medium" },
+        { "label": "High",   "value": "high" }
+      ]
+    },
+    "quality_sparkles": {
+      "order": 13,
+      "text": "Magic sparkles (books)",
+      "type": "combo",
+      "value": "medium",
+      "options": [
+        { "label": "Off",    "value": "off" },
+        { "label": "Low",    "value": "low" },
+        { "label": "Medium", "value": "medium" },
+        { "label": "High",   "value": "high" }
+      ]
+    },
+    "quality_embers": {
+      "order": 14,
+      "text": "Rune embers",
+      "type": "combo",
+      "value": "medium",
+      "options": [
+        { "label": "Off",    "value": "off" },
+        { "label": "Low",    "value": "low" },
+        { "label": "Medium", "value": "medium" },
+        { "label": "High",   "value": "high" }
+      ]
     }
   }
 }

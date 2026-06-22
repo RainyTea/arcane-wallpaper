@@ -23,11 +23,13 @@ export interface RuneEmberSource {
 interface RuneEmbersProps {
   sources: RuneEmberSource[]
   full?: boolean
+  maxEmbers?: number
+  maxEmbersFull?: number
 }
 
 // Slow, sparse magical embers
-const MAX_EMBERS = 18
-const MAX_EMBERS_FULL = 32
+const MAX_EMBERS_DEFAULT = 18
+const MAX_EMBERS_FULL_DEFAULT = 32
 const SPAWN_PER_SEC_PER_SOURCE = 1.2
 const SPAWN_PER_SEC_PER_SOURCE_FULL = 2.6
 const SPREAD_X_FRAC = 0.006
@@ -54,18 +56,25 @@ function spawn(src: RuneEmberSource, w: number, h: number, full: boolean): Ember
 /**
  * Slow purple embers drifting up from each active rune stone
  */
-function RuneEmbers({ sources, full = false }: RuneEmbersProps) {
+function RuneEmbers({
+  sources,
+  full = false,
+  maxEmbers = MAX_EMBERS_DEFAULT,
+  maxEmbersFull = MAX_EMBERS_FULL_DEFAULT,
+}: RuneEmbersProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const embersRef = useRef<Ember[]>([])
   const sizeRef = useRef({ w: 0, h: 0 })
   const carryRef = useRef<number[]>([])
   const sourcesRef = useRef(sources)
   const fullRef = useRef(full)
+  const capRef = useRef(full ? maxEmbersFull : maxEmbers)
 
   useEffect(() => {
     sourcesRef.current = sources
     fullRef.current = full
-  }, [sources, full])
+    capRef.current = full ? maxEmbersFull : maxEmbers
+  }, [sources, full, maxEmbers, maxEmbersFull])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -98,7 +107,7 @@ function RuneEmbers({ sources, full = false }: RuneEmbersProps) {
     const srcs = sourcesRef.current
     const isFull = fullRef.current
     const rate = isFull ? SPAWN_PER_SEC_PER_SOURCE_FULL : SPAWN_PER_SEC_PER_SOURCE
-    const cap = isFull ? MAX_EMBERS_FULL : MAX_EMBERS
+    const cap = capRef.current
 
     if (carryRef.current.length !== srcs.length) carryRef.current = srcs.map(() => 0)
 

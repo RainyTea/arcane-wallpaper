@@ -18,7 +18,7 @@ interface Star {
   radius: number
 }
 
-const STAR_COUNT = 60
+const STAR_COUNT_DEFAULT = 60
 /** radius around the moon, as a fraction of min(canvas w, h). */
 const MOON_EXCLUSION = 0.04
 
@@ -56,7 +56,7 @@ function polygonBBox(poly: Polygon) {
  * puts STAR_COUNT stars across SKY_POLYGONS weighted by bbox area,
  * via rejection sampling. Stars are kept out of the circle around the moon
  */
-function makeStars(width: number, height: number): Star[] {
+function makeStars(width: number, height: number, starCount: number): Star[] {
   const stars: Star[] = []
   const moonX = MOON_FRAC_X * width
   const moonY = MOON_FRAC_Y * height
@@ -68,7 +68,7 @@ function makeStars(width: number, height: number): Star[] {
     return bb.width * bb.height
   })
   const total = areas.reduce((a, b) => a + b, 0) || 2
-  const perPoly = areas.map((a) => Math.round((a / total) * STAR_COUNT))
+  const perPoly = areas.map((a) => Math.round((a / total) * starCount))
 
   SKY_POLYGONS.forEach((poly, pi) => {
     const bb = polygonBBox(poly)
@@ -105,7 +105,7 @@ function makeStars(width: number, height: number): Star[] {
  * twinkling stars constrained to the painted sky regions.
  * (could be done better, just lazy and this works fine)
  */
-function SkyEffects() {
+function SkyEffects({ starCount = STAR_COUNT_DEFAULT }: { starCount?: number } = {}) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const sizeRef = useRef({ w: 0, h: 0 })
   const starsRef = useRef<Star[]>([])
@@ -122,7 +122,7 @@ function SkyEffects() {
       canvas.width = w * dpr
       canvas.height = h * dpr
       sizeRef.current = { w, h }
-      starsRef.current = makeStars(w, h)
+      starsRef.current = makeStars(w, h, starCount)
       const ctx = canvas.getContext('2d')
       ctx?.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
@@ -131,7 +131,7 @@ function SkyEffects() {
     const ro = new ResizeObserver(resize)
     ro.observe(canvas)
     return () => ro.disconnect()
-  }, [])
+  }, [starCount])
 
   useAnimationFrame((_delta, elapsed) => {
     const canvas = canvasRef.current

@@ -21,6 +21,13 @@ import { useSystemInfo } from './hooks/useSystemInfo'
 import { useWallpaperEngine } from './hooks/useWallpaperEngine'
 import { RANGE_LABEL } from './endpoints'
 import { BOOK_SLOTS, RUNE_STONES, SYSTEM_BOOK } from './coords'
+import {
+  DEFAULT_QUALITY,
+  EMBER_CAPS,
+  MOTE_COUNTS,
+  SPARKLE_CAPS,
+  STAR_COUNTS,
+} from './quality'
 import type { OpenPanel, Pos } from './types'
 
 const DEBUG_SLOTS = false
@@ -42,6 +49,7 @@ export default function App() {
   const systemInfo = useSystemInfo()
   const rangeLabel = RANGE_LABEL[we?.range ?? '1mo']
   const flipColors = we?.flipColors ?? false
+  const quality = we?.quality ?? DEFAULT_QUALITY
 
   const focusPanel = useCallback((id: number) => {
     const z = nextZRef.current++
@@ -140,7 +148,7 @@ export default function App() {
   return (
     <Scene>
       <Background />
-      <SkyEffects />
+      {quality.stars !== 'off' && <SkyEffects starCount={STAR_COUNTS[quality.stars]} />}
       <LanternFlicker />
       <CandleFlicker />
       <RuneStones activeCount={stocks.length} debug={DEBUG_SLOTS} />
@@ -153,9 +161,18 @@ export default function App() {
         onBookClick={handleBookClick}
         debug={DEBUG_SLOTS}
       />
-      <RuneEmbers sources={runeEmberSources} full={stocks.length >= RUNE_STONES.length} />
-      <MagicSparkles sources={sparkleSources} />
-      <DustMotes />
+      {quality.embers !== 'off' && (
+        <RuneEmbers
+          sources={runeEmberSources}
+          full={stocks.length >= RUNE_STONES.length}
+          maxEmbers={EMBER_CAPS[quality.embers].base}
+          maxEmbersFull={EMBER_CAPS[quality.embers].full}
+        />
+      )}
+      {quality.sparkles !== 'off' && (
+        <MagicSparkles sources={sparkleSources} maxSparkles={SPARKLE_CAPS[quality.sparkles]} />
+      )}
+      {quality.motes !== 'off' && <DustMotes count={MOTE_COUNTS[quality.motes]} />}
       <AtmosphereFX />
       {DEBUG_SLOTS && <CalibrationOverlay />}
       {panels.map((p, i) => {
