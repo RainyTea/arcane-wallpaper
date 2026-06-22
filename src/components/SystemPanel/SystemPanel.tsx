@@ -95,7 +95,7 @@ export default function SystemPanel({
   onFocus,
   onClose,
 }: SystemPanelProps) {
-  const info = useSystemInfo()
+  const info = useSystemInfo({ enableFps: true })
 
   const cpuClock = fmtClock(info.cpuCoreClockMhz)
   const cpuUsageTemp = fmtUsageTemp(info.cpuUsage, info.cpuTemp)

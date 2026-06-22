@@ -3,6 +3,7 @@ import type { Stock } from '../types'
 import { corsProxyUrl, yahooChartUrl } from '../endpoints'
 import type { ChartRange } from '../endpoints'
 import defaultConfig from '../assets/stocks.json'
+import { useDocumentVisible } from './useDocumentVisible'
 
 const MAX_SLOTS = 4
 const POLL_MS = 60_000
@@ -90,8 +91,10 @@ export function useStocks(
 ): Stock[] {
   const key = tickers.slice(0, MAX_SLOTS).join(',')
   const [quotes, setQuotes] = useState<Record<string, Stock>>({})
+  const visible = useDocumentVisible()
 
   useEffect(() => {
+    if (!visible) return
     const list = key ? key.split(',') : []
     if (list.length === 0) return
 
@@ -119,7 +122,7 @@ export function useStocks(
       controller.abort()
       window.clearInterval(id)
     }
-  }, [key, range])
+  }, [key, range, visible])
 
   return (key ? key.split(',') : []).map((t) => quotes[t] ?? placeholder(t))
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { HWINFO_BRIDGE_URL } from '../endpoints'
+import { useDocumentVisible } from './useDocumentVisible'
 
 export interface SystemInfo {
   fps: number
@@ -61,15 +62,17 @@ const emptyInfo: SystemInfo = {
 }
 
 /**
- * Live system info for the System Codex panel. FPS is always computed locally
- * CPU/GPU/RAM/power/storage come from the optional HWInfo bridge 
- * If the bridge isn't reachable, those fields stay null
+ * Live system info for the System Codex panel. CPU/GPU/RAM/power/storage come
+ * from the optional HWInfo bridge, missing fields stay null. FPS via rAF is
+ * opt-in (enableFps)
+ * Both data sources pause while document.hidden.
  */
-export function useSystemInfo(): SystemInfo {
+export function useSystemInfo({ enableFps = false }: { enableFps?: boolean } = {}): SystemInfo {
   const [info, setInfo] = useState<SystemInfo>(emptyInfo)
+  const visible = useDocumentVisible()
 
-  // FPS via rAF, updated once per second.
   useEffect(() => {
+    if (!enableFps || !visible) return
     let rafId = 0
     let frames = 0
     let windowStart = performance.now()
@@ -87,10 +90,10 @@ export function useSystemInfo(): SystemInfo {
     }
     rafId = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafId)
-  }, [])
+  }, [enableFps, visible])
 
-  // Optional bridge polling.
   useEffect(() => {
+    if (!visible) return
     const controller = new AbortController()
 
     async function poll() {
@@ -135,7 +138,7 @@ export function useSystemInfo(): SystemInfo {
       controller.abort()
       window.clearInterval(id)
     }
-  }, [])
+  }, [visible])
 
   return info
 }
