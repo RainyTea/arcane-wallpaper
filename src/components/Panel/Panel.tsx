@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactNode } from 'react'
-import parchment from '../../assets/parchment.png'
+import parchment from '../../assets/parchment.webp'
 import type { Pos } from '../../types'
 import styles from './Panel.module.css'
 

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import bg from '../../assets/wallpaperAL.png'
+import bg from '../../assets/wallpaperAL.webp'
 import styles from './Background.module.css'
 
 function Background() {
