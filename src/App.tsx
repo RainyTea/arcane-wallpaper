@@ -25,11 +25,6 @@ import type { OpenPanel, Pos } from './types'
 
 const DEBUG_SLOTS = false
 
-/** Parse a percentage string like '70.267%' into a 0..1 fraction. */
-function pct(p: string): number {
-  return parseFloat(p) / 100
-}
-
 /** Stable map key for the panel position memory */
 function panelKey(mode: string, slotIndex: number): string {
   return `${mode}:${slotIndex}`
@@ -110,8 +105,8 @@ export default function App() {
       const hue = showGreen ? 130 : 0
       const rate = 1.5 + tint.intensity * 6
       list.push({
-        fx: pct(slot.left) + pct(slot.width) / 2,
-        fy: pct(slot.top) + pct(slot.height) / 2,
+        fx: parseFloat(slot.left) / 100 + parseFloat(slot.width) / 100 / 2,
+        fy: parseFloat(slot.top) / 100 + parseFloat(slot.height) / 100 / 2,
         radius: 0.04,
         hue,
         rate,
@@ -125,8 +120,8 @@ export default function App() {
   const runeEmberSources = useMemo<RuneEmberSource[]>(
     () =>
       RUNE_STONES.slice(0, stocks.length).map((p) => ({
-        fx: pct(p.x),
-        fy: pct(p.y),
+        fx: parseFloat(p.x) / 100,
+        fy: parseFloat(p.y) / 100,
       })),
     [stocks.length],
   )
