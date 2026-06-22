@@ -1,4 +1,4 @@
-import { useMemo, type CSSProperties } from 'react'
+import { memo, useMemo, type CSSProperties } from 'react'
 import styles from './DustMotes.module.css'
 
 const MOTE_COUNT = 24
@@ -31,7 +31,7 @@ function makeMotes(): Mote[] {
   return arr
 }
 
-export default function DustMotes() {
+function DustMotes() {
   const motes = useMemo(() => makeMotes(), [])
   return (
     <div className={styles.dust} aria-hidden>
@@ -55,3 +55,5 @@ export default function DustMotes() {
     </div>
   )
 }
+
+export default memo(DustMotes)

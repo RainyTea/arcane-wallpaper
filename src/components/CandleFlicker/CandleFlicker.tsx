@@ -1,9 +1,9 @@
-import type { CSSProperties } from 'react'
+import { memo, type CSSProperties } from 'react'
 import { CANDLE_FLAME } from '../../coords'
 import { MASTER_CYCLE_DELAY } from '../../cycleSync'
 import styles from './CandleFlicker.module.css'
 
-export default function CandleFlicker() {
+function CandleFlicker() {
   return (
     <>
       <div
@@ -39,3 +39,5 @@ export default function CandleFlicker() {
     </>
   )
 }
+
+export default memo(CandleFlicker)

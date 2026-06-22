@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import Scene from './components/Scene/Scene'
 import Background from './components/Background/Background'
 import SkyEffects from './components/SkyEffects/SkyEffects'
@@ -24,6 +24,8 @@ import { BOOK_SLOTS, RUNE_STONES, SYSTEM_BOOK } from './coords'
 import type { OpenPanel, Pos } from './types'
 
 const DEBUG_SLOTS = false
+const ALL_BOOK_SLOTS = [...BOOK_SLOTS, SYSTEM_BOOK]
+const HOVER_ONLY_LABELS: Record<number, true> = { [SYSTEM_BOOK.id]: true }
 
 /** Stable map key for the panel position memory */
 function panelKey(mode: string, slotIndex: number): string {
@@ -41,30 +43,31 @@ export default function App() {
   const rangeLabel = RANGE_LABEL[we?.range ?? '1mo']
   const flipColors = we?.flipColors ?? false
 
-  const focusPanel = (id: number) => {
+  const focusPanel = useCallback((id: number) => {
     const z = nextZRef.current++
     setPanels((prev) => prev.map((p) => (p.id === id ? { ...p, z } : p)))
-  }
+  }, [])
 
-  const closePanel = (id: number) => {
+  const closePanel = useCallback((id: number) => {
     setPanels((prev) => prev.filter((p) => p.id !== id))
-  }
+  }, [])
 
-  const handleBookClick = (slotId: number) => {
+  const handleBookClick = useCallback((slotId: number) => {
     const mode = slotId === SYSTEM_BOOK.id ? 'system' : 'stock'
-    const existing = panels.find((p) => p.mode === mode && p.slotIndex === slotId)
-    if (existing) {
-      focusPanel(existing.id)
-      return
-    }
-    const id = nextIdRef.current++
-    const z = nextZRef.current++
-    setPanels((prev) => [...prev, { id, mode, slotIndex: slotId, z }])
-  }
+    setPanels((prev) => {
+      const existing = prev.find((p) => p.mode === mode && p.slotIndex === slotId)
+      const z = nextZRef.current++
+      if (existing) {
+        return prev.map((p) => (p.id === existing.id ? { ...p, z } : p))
+      }
+      const id = nextIdRef.current++
+      return [...prev, { id, mode, slotIndex: slotId, z }]
+    })
+  }, [])
 
   const topZ = panels.reduce((m, p) => (p.z > m ? p.z : m), -Infinity)
 
-  const tints = useMemo<Record<number, BookTint>>(() => {
+  const bookTints = useMemo<Record<number, BookTint>>(() => {
     const map: Record<number, BookTint> = {}
     BOOK_SLOTS.forEach((slot, i) => {
       const s = stocks[i]
@@ -76,13 +79,21 @@ export default function App() {
       const intensity = Math.max(0, Math.min(1, (pct - 0.5) / 4.5))
       map[slot.id] = { direction: s.up ? 'up' : 'down', intensity }
     })
-    // SYSTEM book always glows violet; intensity scales with CPU usage when bridge is up.
-    const sysIntensity = systemInfo.cpuUsage != null
+    return map
+  }, [stocks])
+
+  // SYSTEM book always glows violet, intensity scales with CPU usage when bridge is up.
+  const systemTint = useMemo<BookTint>(() => {
+    const intensity = systemInfo.cpuUsage != null
       ? 0.4 + Math.min(1, systemInfo.cpuUsage / 100) * 0.6
       : 0.5
-    map[SYSTEM_BOOK.id] = { direction: 'system', intensity: sysIntensity }
-    return map
-  }, [stocks, systemInfo.cpuUsage])
+    return { direction: 'system', intensity }
+  }, [systemInfo.cpuUsage])
+
+  const tints = useMemo<Record<number, BookTint>>(
+    () => ({ ...bookTints, [SYSTEM_BOOK.id]: systemTint }),
+    [bookTints, systemTint],
+  )
 
   const labels = useMemo<Record<number, string>>(() => {
     const map: Record<number, string> = {}
@@ -98,7 +109,7 @@ export default function App() {
   const sparkleSources = useMemo<SparkleSource[]>(() => {
     const list: SparkleSource[] = []
     BOOK_SLOTS.forEach((slot) => {
-      const tint = tints[slot.id]
+      const tint = bookTints[slot.id]
       if (!tint) return
       const isUp = tint.direction === 'up'
       const showGreen = isUp !== flipColors
@@ -114,7 +125,7 @@ export default function App() {
       })
     })
     return list
-  }, [tints, flipColors])
+  }, [bookTints, flipColors])
 
   // Slow purple embers rising from each active rune stone.
   const runeEmberSources = useMemo<RuneEmberSource[]>(
@@ -134,9 +145,9 @@ export default function App() {
       <CandleFlicker />
       <RuneStones activeCount={stocks.length} debug={DEBUG_SLOTS} />
       <BookSlots
-        slots={[...BOOK_SLOTS, SYSTEM_BOOK]}
+        slots={ALL_BOOK_SLOTS}
         labels={labels}
-        hoverOnlyLabels={{ [SYSTEM_BOOK.id]: true }}
+        hoverOnlyLabels={HOVER_ONLY_LABELS}
         tints={tints}
         flipColors={flipColors}
         onBookClick={handleBookClick}

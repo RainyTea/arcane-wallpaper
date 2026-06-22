@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { useAnimationFrame } from '../../hooks/useAnimationFrame'
 import styles from './RuneEmbers.module.css'
 
@@ -54,7 +54,7 @@ function spawn(src: RuneEmberSource, w: number, h: number, full: boolean): Ember
 /**
  * Slow purple embers drifting up from each active rune stone
  */
-export default function RuneEmbers({ sources, full = false }: RuneEmbersProps) {
+function RuneEmbers({ sources, full = false }: RuneEmbersProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const embersRef = useRef<Ember[]>([])
   const sizeRef = useRef({ w: 0, h: 0 })
@@ -145,3 +145,5 @@ export default function RuneEmbers({ sources, full = false }: RuneEmbersProps) {
 
   return <canvas ref={canvasRef} className={styles.canvas} aria-hidden />
 }
+
+export default memo(RuneEmbers)

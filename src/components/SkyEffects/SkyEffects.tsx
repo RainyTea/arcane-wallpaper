@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { useAnimationFrame } from '../../hooks/useAnimationFrame'
 import {
   WINDOW_BBOX,
@@ -105,7 +105,7 @@ function makeStars(width: number, height: number): Star[] {
  * twinkling stars constrained to the painted sky regions.
  * (could be done better, just lazy and this works fine)
  */
-export default function SkyEffects() {
+function SkyEffects() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const sizeRef = useRef({ w: 0, h: 0 })
   const starsRef = useRef<Star[]>([])
@@ -185,3 +185,5 @@ export default function SkyEffects() {
     />
   )
 }
+
+export default memo(SkyEffects)

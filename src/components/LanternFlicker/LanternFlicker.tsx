@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { memo, type CSSProperties } from 'react'
 import { LANTERN_LEFT, LANTERN_RIGHT } from '../../coords'
 import type { GlowPoint } from '../../coords'
 import { MASTER_CYCLE_DELAY } from '../../cycleSync'
@@ -51,7 +51,7 @@ function LanternSmoke({ point, phase = 'a' }: LanternProps) {
   )
 }
 
-export default function LanternFlicker() {
+function LanternFlicker() {
   return (
     <>
       <div className={styles.daycycle} style={{ animationDelay: MASTER_CYCLE_DELAY }}>
@@ -63,3 +63,5 @@ export default function LanternFlicker() {
     </>
   )
 }
+
+export default memo(LanternFlicker)

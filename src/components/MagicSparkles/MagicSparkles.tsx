@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { useAnimationFrame } from '../../hooks/useAnimationFrame'
 import styles from './MagicSparkles.module.css'
 
@@ -92,7 +92,7 @@ function drawSparkle(
   ctx.stroke()
 }
 
-export default function MagicSparkles({ sources }: MagicSparklesProps) {
+function MagicSparkles({ sources }: MagicSparklesProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const sparklesRef = useRef<Sparkle[]>([])
   const sizeRef = useRef({ w: 0, h: 0 })
@@ -170,3 +170,5 @@ export default function MagicSparkles({ sources }: MagicSparklesProps) {
 
   return <canvas ref={canvasRef} className={styles.canvas} aria-hidden />
 }
+
+export default memo(MagicSparkles)

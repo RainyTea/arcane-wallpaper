@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { RUNE_STONES } from '../../coords'
 import styles from './RuneStones.module.css'
 
@@ -6,7 +7,7 @@ interface RuneStonesProps {
   debug?: boolean
 }
 
-export default function RuneStones({ activeCount, debug = false }: RuneStonesProps) {
+function RuneStones({ activeCount, debug = false }: RuneStonesProps) {
   const full = activeCount >= RUNE_STONES.length
 
   return (
@@ -33,3 +34,5 @@ export default function RuneStones({ activeCount, debug = false }: RuneStonesPro
     </>
   )
 }
+
+export default memo(RuneStones)
